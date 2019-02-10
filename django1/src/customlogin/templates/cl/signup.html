@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<!-- f : SignupForm 객체, error : 비밀번호가 틀린 경우만 사용 가능 -->
+
+<h1>회원가입</h1>
+{% if error %}
+	<p style = "color : red;">{{ error }}</p>
+{% endif %}
+
+<form action = "" method = "POST">
+	{% csrf_token %}
+	<table>
+		{{ f.as_table }}
+	</table>
+	
+	<input type = "submit" value = "회원가입">
+</form>
+<a href = "{% url 'vote:index' %}">메인페이지로 돌아가기</a>
+</body>
+</html>

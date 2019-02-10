@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<!-- View가 준 변수 : 'f' : Question 객체 -->
+<!-- action 속성이 빈칸인 경우, 해당 form을 제출하게 되면 클라이언트가 현재 위치한 URL 주소로 데이터를 보냄
+ex) 127.0.0.1:8000/vote/qregister 주소에서 form태그 제출 시,
+127.0.0.1:8000/vote/qregister로 데이터 전송 -> 동일한 뷰에 데이터 전송 -->
+<!-- 링크를 타고 들어온 GET방식으로 View에 들어오면, HTML에서 작성을 하고 보낼 때는 다시 돌아가서 POST방식으로 View에 들어온다. 따라서 객체 생성 등을 할 수 있다.
+투표어플리케이션 때는 링크를 타고 들어가 detail페이지에 들어가서 투표를 할 경우, vote로 넘어가는데 그 때는  POST방식으로 넘어간다.
+즉, 여기서는 detail, vote 2개를 사용하고 이번에는 View 하나만 가지고 한다.-->
+<h1>질문 등록 페이지</h1>
+<form action = "" method = "POST">
+	{% csrf_token %}
+	<!-- <p> 태그로 둘러쌓인 <input><label> 태그 생성 함수 -->
+	<!-- HTML에서는 함수 호출 시 소괄호 생략 -->
+	{{ f.as_p }}
+	
+	<input type = "submit" value = "질문생성">
+</form>
+<!-- urls.py에 app_name을 vote라고 했기 때문에, vote라는 하위 그룹에 별칭을 index로 준 페이지로 넘어가겠다. -->
+<a href = "{% url 'vote:index' %}">메인페이지로 돌아가기</a>
+</body>
+</html>

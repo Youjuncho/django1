@@ -1,0 +1,30 @@
+{% extends 'blog/base.html' %} <!-- blog의 base.html의 블록을 사용하겠다. -->
+<!-- obj : Post 모델 객체 1개 -->
+{% block content %} <!-- 우리가 수정할 수 있는 block을 작성 -> content --><!-- css등 되게 다양하다. -->
+
+<h3>[ {{ obj.category }} ]{{ obj.headline }}</h3>
+
+<p> {{ obj.author }} / {{ obj.pub_date }}</p>  
+
+<!-- Post객체와 연결된 PostImgage, PostFile 객체 추출 -->
+<!-- 1:n관계로 Post =1 / Post File =n or Post Image =n 이 되어 있다. -->
+<!-- Post객체와 연결된 PostImage나 PostFile이 있는지 for문을 이용해서 있으면 출력할 수 있도록, 반복문을 돌릴 것이다. -->
+<!-- models.py에서 postfile함수를 설정했기 때문 -->
+
+{% for f in obj.postfile_set.all %}
+<!-- a태그에 download를 설정해 주면, 링크를 눌렀을 경우에, 사이트 이동이 아닌, 파일이 다운된다. -->
+<!-- models.py에서 PostFile함수에서 file이라는 파일 데이터를 저장하는 공간을 만들었기 때문에, f.file이다. -->	
+	<a href = "{{f.file.url}}" download>첨부파일</a>
+	<br>
+{% endfor %}
+
+{% for i in obj.postimage_set.all %}
+<!-- 웹 서버가 요청을 할 때, 링크를 눌렀을 경우 하드웨어의 이동이 아니라, 이미지를 url로 열고 싶다 할때 url을 사용. -->
+	<img src = "{{i.image.url}}" width = "30%">
+	<br>
+{% endfor %}
+
+<pre>{{obj.content}}</pre>
+
+{% endblock %}
+

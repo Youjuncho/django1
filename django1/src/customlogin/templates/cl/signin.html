@@ -1,0 +1,20 @@
+{%extends 'blog/base.html'%}
+{% block content %}
+<!-- f : SigninForm 객체, error : 아이디/비밀번호 틀린경우 에러코드 -->
+{% if error %}
+<p> {{ error }} </p>
+{% endif %}
+
+<form action = "" method = "post">
+	{% csrf_token %}
+	<!-- 로그인 후 이동할 페이지 주소 -->
+	<input type = "hidden" name = "nexturl" value = "{{nexturl}}">
+	
+	{{ f.as_p }}
+	
+	<input type = "submit" value = "로그인">
+</form>
+<a href = "{% url 'social:begin' 'google-plus' %}">구글로 로그인하기</a><!-- 이것만 추가. 이거 추가하고 아까 그 페이지에 plus 다시 추가 -->
+<a href = "{% url 'cl:signup' %}">회원가입</a>
+<a href = "{% url 'vote:index' %}">메인페이지로 돌아가기</a>
+{%endblock%}

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<!-- 베너 -->
+<h3> 나만의 홈페이지 </h3>
+<!-- 어플리케이션 바로가기 링크 -->
+<a href = "/"> 북마크 </a>
+<a href = "{% url 'vote:index' %}"> 설문조사 </a>
+<a href = "{% url 'blog:index' %}"> 블로그 </a>
+<br>
+
+<!-- 로그인/비로그인 처리 : 클라이언트의 로그인정보가 user 변수에 들어 있음 
+user.is_authenticated : 사용자가 현재 로그인이 되어있는지 True(로그인), False(비로그인)반환 -->
+
+{% if user.is_authenticated %}
+	<!-- 로그인이 된 경우 -->
+	<p> {{ user.last_name }} {{ user.first_name }} 님 환영합니다! <a href = "{% url 'cl:signout'%}">로그아웃</a>
+{% else %}
+	<!-- 로그인이 안된 경우 -->
+	<a href = "{% url 'cl:signin' %}">로그인</a>
+	<a href = "{% url 'cl:signup' %}">회원가입</a>
+{% endif %}
+<hr>
+
+<!-- 수정할 수 있는 공간 
+block tag : 해당 html을 다른 html이 확장할 때 수정할 수 있는 공간을 설정. 다른 html이 블록을 수정하고 싶은 경우 블록이름과 동일한 블록을 생성해 HTML코드 작성-->
+{% block content %} <!-- block css를 사용해서 같은 디자인을 다른 공간에서도 사용할 수 있다. -->
+{% endblock %}
+
+
+
+
+
+<!--  -->
+</body>
+</html>

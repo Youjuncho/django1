@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<!-- q : Question 객체 변수 !만 받은 상태--> 
+<h1>{{q.name}}투표결과</h1>
+<ul>
+	<!-- HTML 파일에서 파이썬 코드 사용시 함수호출에 매개변수를 사용할 수 없음. 
+	따라서 변수이름처럼 함수이름만 작성하면 된다. -> 매개변수가 요구되는 함수를 사용할 수 없다. ex)range(5)처럼 all뒤에 ()를 쓸 수 없음 -->
+	{% for c in q.choice_set.all%} <!-- 이거 원래 다른곳에서 작성했던건데 HTML파일에 작성하는 법으로 새로 시도한것! -->
+		<li>{{c.name}} - {{c.votes}} 표 </li>
+	{% endfor %}
+</ul>
+<a href = "{% url 'vote:index' %}">메인페이지로 돌아가기</a>
+</body>
+</html>
